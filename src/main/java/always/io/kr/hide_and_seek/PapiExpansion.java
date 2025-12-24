@@ -35,20 +35,17 @@ public class PapiExpansion extends PlaceholderExpansion {
             return "대기 중";
         }
 
-        switch (params.toLowerCase()) {
-            case "time":
+        return switch (params.toLowerCase()) {
+            case "time" -> {
                 int sec = gm.getTimeLeft();
-                return String.format("%02d:%02d", sec / 60, sec % 60);
-            case "alive":
-                return String.valueOf(gm.getAliveCount());
-            case "caught":
-                return String.valueOf(gm.getCaughtCount());
-            case "total":
-                return String.valueOf(gm.getTotalCitizenCount());
-            case "tagger":
-                return gm.getTagger() != null ? gm.getTagger().getName() : "없음";
-        }
+                yield String.format("%02d:%02d", sec / 60, sec % 60);
+            }
+            case "alive" -> String.valueOf(gm.getAliveCount());
+            case "caught" -> String.valueOf(gm.getCaughtCount());
+            case "total" -> String.valueOf(gm.getTotalCitizenCount());
+            case "tagger" -> gm.getTagger() != null ? gm.getTagger().getName() : "없음";
+            default -> null;
+        };
 
-        return null;
     }
 }
