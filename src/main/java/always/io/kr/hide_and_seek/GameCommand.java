@@ -7,7 +7,8 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 
 public class GameCommand implements CommandExecutor, TabCompleter {
 
@@ -20,7 +21,7 @@ public class GameCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NonNull [] args) {
         if (!(sender instanceof Player player)) return false;
-        if (!player.isOp()) return false; // OP만 사용 가능
+        if (!player.isOp()) return false;
 
         if (args.length == 0) return false;
 
@@ -31,29 +32,38 @@ public class GameCommand implements CommandExecutor, TabCompleter {
                 gm.startGame(player);
                 break;
             case "end":
-                gm.stopGame("관리자 강제 종료");
+                if (gm.isRunning()) {
+                    gm.forceStopGame();
+                } else {
+                    player.sendMessage(Hide_and_seek.PREFIX.append(Component.text("진행 중인 놀이가 없어요.", NamedTextColor.YELLOW)));
+                }
                 break;
             case "position1":
                 gm.setPos1(player.getLocation());
-                player.sendMessage(Component.text("술래 대기소(Pos1) 설정 완료", NamedTextColor.GREEN));
+                player.sendMessage(Hide_and_seek.PREFIX.append(Component.text("🎅 산타 굴뚝(Pos1) 위치 설정 완료!", NamedTextColor.GREEN)));
                 break;
             case "position2":
                 gm.setPos2(player.getLocation());
-                player.sendMessage(Component.text("시민 시작점(Pos2) 설정 완료", NamedTextColor.GREEN));
+                player.sendMessage(Hide_and_seek.PREFIX.append(Component.text("🧝 요정 마을(Pos2) 위치 설정 완료!", NamedTextColor.GREEN)));
                 break;
             case "exception":
                 if (args.length < 2) {
-                    player.sendMessage("사용법: /has exception <플레이어>");
+                    player.sendMessage(Hide_and_seek.PREFIX.append(Component.text("사용법: /has exception <닉네임>", NamedTextColor.RED)));
                     return true;
                 }
                 Player target = plugin.getServer().getPlayer(args[1]);
                 if (target != null) {
                     gm.toggleException(target);
+                } else {
+                    player.sendMessage(Hide_and_seek.PREFIX.append(Component.text("그 친구는 지금 없어요.", NamedTextColor.RED)));
                 }
                 break;
-            case "get": // 열쇠 얻기
+            case "get":
                 player.getInventory().addItem(gm.getKeyItem());
-                player.sendMessage(Component.text("부활의 열쇠를 지급받았습니다.", NamedTextColor.AQUA));
+                player.sendMessage(Hide_and_seek.PREFIX.append(Component.text("⭐ 크리스마스의 기적(부활권)을 받았어요.", NamedTextColor.AQUA)));
+                break;
+            default:
+                player.sendMessage(Hide_and_seek.PREFIX.append(Component.text("알 수 없는 명령어입니다.", NamedTextColor.RED)));
                 break;
         }
         return true;

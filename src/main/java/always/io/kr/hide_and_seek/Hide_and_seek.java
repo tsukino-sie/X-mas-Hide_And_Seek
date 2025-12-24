@@ -1,5 +1,7 @@
 package always.io.kr.hide_and_seek;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
@@ -9,30 +11,38 @@ public final class Hide_and_seek extends JavaPlugin {
     private static Hide_and_seek instance;
     private GameManager gameManager;
 
+    // ✨ Prefix: 이모지/볼드 제거, 색상만 적용 (빨강/초록 크리스마스 컬러)
+    public static final Component PREFIX = Component.empty()
+            .append(Component.text("[", NamedTextColor.RED))
+            .append(Component.text("산타술래잡기", NamedTextColor.GREEN))
+            .append(Component.text("] ", NamedTextColor.RED));
+
     @Override
     public void onEnable() {
         instance = this;
-
-        // 매니저 초기화
         this.gameManager = new GameManager(this);
 
-        // 명령어 & 이벤트 등록
-        Objects.requireNonNull(getCommand("has")).setExecutor(new GameCommand(this));
-        Objects.requireNonNull(getCommand("has")).setTabCompleter(new GameCommand(this));
+        // 명령어 및 이벤트 등록
+        if (getCommand("has") != null) {
+            GameCommand cmd = new GameCommand(this);
+            Objects.requireNonNull(getCommand("has")).setExecutor(cmd);
+            Objects.requireNonNull(getCommand("has")).setTabCompleter(cmd);
+        }
+
         getServer().getPluginManager().registerEvents(new GameListener(this), this);
 
-        // PlaceholderAPI 등록
+        // PAPI 등록
         if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new PapiExpansion(this).register();
         }
 
-        getLogger().info("술래잡기 플러그인 활성화 완료!");
+        getLogger().info("산타 술래잡기 플러그인 활성화 완료!");
     }
 
     @Override
     public void onDisable() {
         if (gameManager != null && gameManager.isRunning()) {
-            gameManager.stopGame("서버 종료로 인한 강제 중단");
+            gameManager.forceStopGame();
         }
     }
 
