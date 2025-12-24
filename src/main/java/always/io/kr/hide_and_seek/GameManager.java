@@ -252,7 +252,7 @@ public class GameManager {
         }
     }
 
-    // Papi용 메소드들 유지...
+    // PAPI 용 메소드들 유지...
     public int getTimeLeft() { return timeLeft; }
     public int getAliveCount() { return citizens.size() - caughtPlayers.size(); }
     public int getCaughtCount() { return caughtPlayers.size(); }
