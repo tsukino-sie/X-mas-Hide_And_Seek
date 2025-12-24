@@ -1,0 +1,16 @@
+name: hide_and_seek
+version: '1.0-SNAPSHOT'
+main: always.io.kr.hide_and_seek.Hide_and_seek
+api-version: '1.21'
+authors: [ Sie ]
+description: Hide and Seek on minecraft server 1.21.10 purpur.
+
+# PlaceholderAPI(%has_time% 등)
+depend: [PlaceholderAPI]
+
+commands:
+  has:
+    description: 술래잡기 메인 명령어
+    usage: /has <start|end|position1|position2|exception|get>
+    # 한국어나 짧은 명령어로도 실행하고 싶다면 아래 주석을 해제
+    # aliases: [술래잡기, hs]
