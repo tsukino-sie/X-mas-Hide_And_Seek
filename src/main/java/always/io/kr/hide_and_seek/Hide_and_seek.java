@@ -2,6 +2,8 @@ package always.io.kr.hide_and_seek;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Objects;
+
 public final class Hide_and_seek extends JavaPlugin {
 
     private static Hide_and_seek instance;
@@ -15,8 +17,8 @@ public final class Hide_and_seek extends JavaPlugin {
         this.gameManager = new GameManager(this);
 
         // 명령어 & 이벤트 등록
-        getCommand("has").setExecutor(new GameCommand(this));
-        getCommand("has").setTabCompleter(new GameCommand(this));
+        Objects.requireNonNull(getCommand("has")).setExecutor(new GameCommand(this));
+        Objects.requireNonNull(getCommand("has")).setTabCompleter(new GameCommand(this));
         getServer().getPluginManager().registerEvents(new GameListener(this), this);
 
         // PlaceholderAPI 등록
