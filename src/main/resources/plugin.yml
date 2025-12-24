@@ -5,7 +5,7 @@ api-version: '1.21'
 authors: [ Sie ]
 description: Hide and Seek on minecraft server 1.21.10 purpur.
 
-# PlaceholderAPI(%has_time% 등)
+# PlaceholderAPI 연동(%has_time% 등)
 depend: [PlaceholderAPI]
 
 commands:
