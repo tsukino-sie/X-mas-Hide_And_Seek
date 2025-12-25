@@ -14,7 +14,7 @@ public final class Hide_and_seek extends JavaPlugin {
     // ✨ Prefix: 이모지/볼드 제거, 색상만 적용 (빨강/초록 크리스마스 컬러)
     public static final Component PREFIX = Component.empty()
             .append(Component.text("[", NamedTextColor.RED))
-            .append(Component.text("산타술래잡기", NamedTextColor.GREEN))
+            .append(Component.text("산타 술래잡기", NamedTextColor.GREEN))
             .append(Component.text("] ", NamedTextColor.RED));
 
     @Override
@@ -36,7 +36,7 @@ public final class Hide_and_seek extends JavaPlugin {
             new PapiExpansion(this).register();
         }
 
-        getLogger().info("산타 술래잡기 플러그인 활성화 완료!");
+        getLogger().info("plugin Activate Successfully,");
     }
 
     @Override

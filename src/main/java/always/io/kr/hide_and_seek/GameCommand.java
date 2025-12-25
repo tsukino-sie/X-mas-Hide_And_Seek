@@ -35,7 +35,7 @@ public class GameCommand implements CommandExecutor, TabCompleter {
                 if (gm.isRunning()) {
                     gm.forceStopGame();
                 } else {
-                    player.sendMessage(Hide_and_seek.PREFIX.append(Component.text("진행 중인 놀이가 없어요.", NamedTextColor.YELLOW)));
+                    player.sendMessage(Hide_and_seek.PREFIX.append(Component.text("진행 중인 게임이 없어요.", NamedTextColor.YELLOW)));
                 }
                 break;
             case "position1":

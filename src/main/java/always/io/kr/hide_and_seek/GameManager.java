@@ -42,7 +42,7 @@ public class GameManager {
             p.sendMessage(Hide_and_seek.PREFIX.append(Component.text("다시 요정 명단에 추가되었어요! 📝", NamedTextColor.GREEN)));
         } else {
             exceptions.add(p.getUniqueId());
-            p.sendMessage(Hide_and_seek.PREFIX.append(Component.text("이번 놀이에서는 빠지게 되었어요. 푹 쉬세요! ☕", NamedTextColor.YELLOW)));
+            p.sendMessage(Hide_and_seek.PREFIX.append(Component.text("이번 게임에서는 빠지게 되었어요. 푹 쉬세요! ☕", NamedTextColor.YELLOW)));
         }
     }
 
@@ -53,7 +53,7 @@ public class GameManager {
             return;
         }
         if (isRunning) {
-            starter.sendMessage(Hide_and_seek.PREFIX.append(Component.text("이미 놀이가 진행 중이에요!", NamedTextColor.RED)));
+            starter.sendMessage(Hide_and_seek.PREFIX.append(Component.text("이미 게임이 진행 중이에요!", NamedTextColor.RED)));
             return;
         }
 
@@ -99,7 +99,7 @@ public class GameManager {
             if (!isRunning || tagger == null || !tagger.isOnline()) return;
             tagger.teleport(pos2);
 
-            broadcast(Component.text("🎅 메리 크리스마스! 산타가 선물을 주러 왔어요!", NamedTextColor.RED, TextDecoration.BOLD));
+            broadcast(Component.text("🎅 메리 크리스마스! 산타가 도망간 요정들을 잡으러 왔어요!", NamedTextColor.RED, TextDecoration.BOLD));
             playSoundAll(1f, 1f);
         }, 15 * 20L);
     }
@@ -129,7 +129,7 @@ public class GameManager {
                 }
 
                 if (timeLeft == 60) {
-                    broadcast(Component.text("⏰ 놀이 시간이 1분 남았어요!", NamedTextColor.YELLOW));
+                    broadcast(Component.text("⏰ 게임 시간이 1분 남았어요!", NamedTextColor.YELLOW));
                 }
 
                 timeLeft--;
@@ -149,7 +149,7 @@ public class GameManager {
             titleMain = Component.text("🎅 산타 승리!", NamedTextColor.RED, TextDecoration.BOLD);
             titleSub = Component.text("모든 요정이 선물 자루에 들어갔어요 🎁", NamedTextColor.YELLOW);
             sound = Sound.UI_TOAST_CHALLENGE_COMPLETE;
-            broadcast(Component.text("🎅 산타 할아버지가 모든 요정을 잡아서 승리했어요!", NamedTextColor.RED));
+            broadcast(Component.text("🎅 산타가 모든 요정을 잡아서 승리했어요!", NamedTextColor.RED));
         } else {
             // 요정 승리
             titleMain = Component.text("🧝 요정 승리!", NamedTextColor.GREEN, TextDecoration.BOLD);
@@ -179,7 +179,7 @@ public class GameManager {
     public void forceStopGame() {
         if (!isRunning) return;
         isRunning = false;
-        broadcast(Component.text("관리자에 의해 놀이가 종료되었습니다.", NamedTextColor.GRAY));
+        broadcast(Component.text("관리자에 의해 게임이 종료되었습니다.", NamedTextColor.GRAY));
 
         for (Player p : Bukkit.getOnlinePlayers()) {
             p.getInventory().clear();
@@ -206,13 +206,13 @@ public class GameManager {
                 .append(Component.text(" 요정이 잡혔어요! (생존: " + getAliveCount() + "명)", NamedTextColor.RED)));
 
         p.sendTitlePart(net.kyori.adventure.title.TitlePart.TITLE, Component.text("잡혔다!", NamedTextColor.RED));
-        p.sendTitlePart(net.kyori.adventure.title.TitlePart.SUBTITLE, Component.text("친구들을 응원하세요...", NamedTextColor.GRAY));
+        p.sendTitlePart(net.kyori.adventure.title.TitlePart.SUBTITLE, Component.text("다른 요정들을 응원해주세요...", NamedTextColor.GRAY));
         p.playSound(p.getLocation(), Sound.ENTITY_SNOW_GOLEM_HURT, 1f, 1f);
     }
 
     public void reviveRandomCitizen(Player reviver) {
         if (caughtPlayers.isEmpty()) {
-            reviver.sendMessage(Hide_and_seek.PREFIX.append(Component.text("아직 잡혀간 친구가 없어요! 😉", NamedTextColor.GREEN)));
+            reviver.sendMessage(Hide_and_seek.PREFIX.append(Component.text("아직 잡혀간 요정이 없어요! 😉", NamedTextColor.GREEN)));
             return;
         }
 
@@ -256,7 +256,7 @@ public class GameManager {
         ItemStack key = new ItemStack(Material.NETHER_STAR);
         ItemMeta meta = key.getItemMeta();
         meta.displayName(Component.text("⭐ 크리스마스의 기적", NamedTextColor.YELLOW, TextDecoration.BOLD));
-        meta.lore(List.of(Component.text("우클릭하여 잡힌 친구를 구하세요!", NamedTextColor.WHITE)));
+        meta.lore(List.of(Component.text("우클릭하여 잡힌요정을 구하세요!", NamedTextColor.WHITE)));
         key.setItemMeta(meta);
         return key;
     }

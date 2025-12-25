@@ -75,7 +75,7 @@ public class GameListener implements Listener {
                     event.setCancelled(true);
 
                     if (gm.getCaughtCount() == 0) {
-                        p.sendMessage(Component.text("잡혀간 친구가 없어서 별을 쓸 수 없어요. 아껴두세요! ⭐", NamedTextColor.YELLOW));
+                        p.sendMessage(Component.text("잡힌 요정이 없어서 별을 쓸 수 없어요. 아껴두세요! ⭐", NamedTextColor.YELLOW));
                         return;
                     }
 
